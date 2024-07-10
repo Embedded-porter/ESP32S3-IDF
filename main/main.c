@@ -15,6 +15,7 @@
 *                                 任务优先级，数值越小优先级越高(2~max)
 *********************************************************************************************************
 */
+#define APP_CFG_TASK_USB_CDC_PRIO 7
 #define APP_CFG_TASK_TCP_PRIO 6
 #define APP_CFG_TASK_UART0_PRIO 5
 #define APP_CFG_TASK_BUTTON_PRIO 4
@@ -25,6 +26,7 @@
 *                                    任务栈大小，单位字节
 *********************************************************************************************************
 */
+#define APP_CFG_TASK_USB_CDC_STK_SIZE 4096
 #define APP_CFG_TASK_TCP_STK_SIZE 4096
 #define APP_CFG_TASK_UART0_STK_SIZE 4096
 #define APP_CFG_TASK_BUTTON_STK_SIZE 4096
@@ -36,6 +38,7 @@
 *                                       任务句柄变量
 *********************************************************************************************************
 */
+static TaskHandle_t xHandleTaskUSB_CDC = NULL;
 static TaskHandle_t xHandleTaskTCP = NULL;
 static TaskHandle_t xHandleTaskUART0 = NULL;
 static TaskHandle_t xHandleTaskBUTTON = NULL;
@@ -62,6 +65,7 @@ static void AppGetTime(void);
 *                                      线程函数声明(在下面添加)
 *********************************************************************************************************
 */
+static void vTaskUSB_CDC(void *pvParameters);
 static void vTaskTCP(void *pvParameters);
 static void vTaskUART0(void *pvParameters);
 static void vTaskBUTTON(void *pvParameters);
@@ -148,6 +152,13 @@ static void AppObjCreate(void)
 */
 static void AppTaskCreate(void)
 {
+    // xTaskCreate(vTaskUSB_CDC,                  /* 任务函数  */
+    //             "vTaskUSB_CDC",                /* 任务名    */
+    //             APP_CFG_TASK_USB_CDC_STK_SIZE, /* 任务栈大小，单位word，也就是4字节 */
+    //             NULL,                          /* 任务参数  */
+    //             APP_CFG_TASK_USB_CDC_PRIO,     /* 任务优先级*/
+    //             &xHandleTaskUSB_CDC);          /* 任务句柄  */
+
     xTaskCreate(vTaskTCP,                  /* 任务函数  */
                 "vTaskTCP",                /* 任务名    */
                 APP_CFG_TASK_TCP_STK_SIZE, /* 任务栈大小，单位word，也就是4字节 */
@@ -183,6 +194,23 @@ static void AppTaskCreate(void)
                 APP_CFG_TASK_LED_PRIO,     /* 任务优先级*/
                 &xHandleTaskLED);          /* 任务句柄  */
 }
+
+/*
+*********************************************************************************************************
+*	函 数 名: vTaskUSB_CDC
+*	功能说明: USB_CDC线程
+*	形    参: pvParameters 是在创建该任务时传递的形参
+*	返 回 值: 无
+*********************************************************************************************************
+*/
+static void vTaskUSB_CDC(void *pvParameters)
+{
+    while (1)
+    {
+        vTaskDelay((100) / portTICK_PERIOD_MS);
+    }
+}
+
 
 /*
 *********************************************************************************************************

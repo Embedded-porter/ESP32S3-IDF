@@ -65,7 +65,10 @@
 #include "mqtt_client.h"
 #include "bsp_mqtt_client.h"
 
-/*MODBUS */
+/*USB */
+#include "usbd_core.h"
+#include "usbd_cdc.h"
+#include "bsp_usbx_cdc.h"
 
 
 void bsp_Init(void);

@@ -6469,7 +6469,10 @@
                         "help": "This baud rate is used for UART.\n\nThe app's maximum baud rate depends on the UART clock source. If Power Management is disabled,\nthe UART clock source is the APB clock and all baud rates in the available range will be sufficiently\naccurate. If Power Management is enabled, REF_TICK clock source is used so the baud rate is divided\nfrom 1MHz. Baud rates above 1Mbps are not possible and values between 500Kbps and 1Mbps may not be\naccurate.",
                         "id": "APPTRACE_UART_BAUDRATE",
                         "name": "APPTRACE_UART_BAUDRATE",
-                        "range": null,
+                        "range": [
+                            1200,
+                            8000000
+                        ],
                         "title": "UART baud rate",
                         "type": "int"
                     },
@@ -6479,7 +6482,10 @@
                         "help": "Size of the UART input ring buffer.\nThis size related to the baudrate, system tick frequency and amount of data to transfer.\nThe data placed to this buffer before sent out to the interface.",
                         "id": "APPTRACE_UART_RX_BUFF_SIZE",
                         "name": "APPTRACE_UART_RX_BUFF_SIZE",
-                        "range": null,
+                        "range": [
+                            64,
+                            32768
+                        ],
                         "title": "UART RX ring buffer size",
                         "type": "int"
                     },
@@ -6489,7 +6495,10 @@
                         "help": "Size of the UART output ring buffer.\nThis size related to the baudrate, system tick frequency and amount of data to transfer.",
                         "id": "APPTRACE_UART_TX_BUFF_SIZE",
                         "name": "APPTRACE_UART_TX_BUFF_SIZE",
-                        "range": null,
+                        "range": [
+                            2048,
+                            32768
+                        ],
                         "title": "UART TX ring buffer size",
                         "type": "int"
                     },
@@ -6499,7 +6508,10 @@
                         "help": "Maximum size of the single message to transfer.",
                         "id": "APPTRACE_UART_TX_MSG_SIZE",
                         "name": "APPTRACE_UART_TX_MSG_SIZE",
-                        "range": null,
+                        "range": [
+                            64,
+                            32768
+                        ],
                         "title": "UART TX message size",
                         "type": "int"
                     },
@@ -6562,7 +6574,10 @@
                         "help": "Timeout for flushing last trace data to host in case of panic. In ms.\nUse -1 to disable timeout and wait forever.",
                         "id": "APPTRACE_ONPANIC_HOST_FLUSH_TMO",
                         "name": "APPTRACE_ONPANIC_HOST_FLUSH_TMO",
-                        "range": null,
+                        "range": [
+                            -1,
+                            5000
+                        ],
                         "title": "Timeout for flushing last trace data to host on panic",
                         "type": "int"
                     },
@@ -6572,7 +6587,10 @@
                         "help": "Threshold for flushing last trace data to host on panic in post-mortem mode.\nThis is minimal amount of data needed to perform flush. In bytes.",
                         "id": "APPTRACE_POSTMORTEM_FLUSH_THRESH",
                         "name": "APPTRACE_POSTMORTEM_FLUSH_THRESH",
-                        "range": null,
+                        "range": [
+                            0,
+                            16384
+                        ],
                         "title": "Threshold for flushing last trace data to host on panic",
                         "type": "int"
                     },
@@ -18463,7 +18481,7 @@
                         "id": "ESP_IPC_TASK_STACK_SIZE",
                         "name": "ESP_IPC_TASK_STACK_SIZE",
                         "range": [
-                            512,
+                            2048,
                             65536
                         ],
                         "title": "Inter-Processor Call (IPC) task stack size",
@@ -27834,6 +27852,282 @@
             {
                 "children": [
                     {
+                        "children": [
+                            {
+                                "children": [],
+                                "depends_on": "CU_RELINKER_ENABLE",
+                                "help": "\"Enable this option to print error information instead of\n    throwing exception when missing function\"",
+                                "id": "CU_RELINKER_ENABLE_PRINT_ERROR_INFO_WHEN_MISSING_FUNCTION",
+                                "name": "CU_RELINKER_ENABLE_PRINT_ERROR_INFO_WHEN_MISSING_FUNCTION",
+                                "range": null,
+                                "title": "Print error information when missing function",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [
+                                    {
+                                        "children": [],
+                                        "depends_on": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES && CU_RELINKER_ENABLE",
+                                        "help": "\"Customized relinker configuration files path. This path is\nevaluated relative to the project root directory.\"",
+                                        "id": "CU_RELINKER_CUSTOMIZED_CONFIGURATION_FILES_PATH",
+                                        "name": "CU_RELINKER_CUSTOMIZED_CONFIGURATION_FILES_PATH",
+                                        "range": null,
+                                        "title": "Customized relinker configuration files path",
+                                        "type": "string"
+                                    }
+                                ],
+                                "depends_on": "CU_RELINKER_ENABLE",
+                                "help": "\"Enable this option to use customized relinker configuration\nfiles instead of default ones\"",
+                                "id": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES",
+                                "name": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES",
+                                "range": null,
+                                "title": "Enable customized relinker configuration files",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": null,
+                        "help": "\"Enable relinker to linker some IRAM functions to Flash\"",
+                        "id": "CU_RELINKER_ENABLE",
+                        "name": "CU_RELINKER_ENABLE",
+                        "range": null,
+                        "title": "Enable relinker",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [
+                            {
+                                "children": [],
+                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
+                                "help": null,
+                                "id": "CU_DIAGNOSTICS_COLOR_NEVER",
+                                "name": "CU_DIAGNOSTICS_COLOR_NEVER",
+                                "range": null,
+                                "title": "never",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
+                                "help": null,
+                                "id": "CU_DIAGNOSTICS_COLOR_ALWAYS",
+                                "name": "CU_DIAGNOSTICS_COLOR_ALWAYS",
+                                "range": null,
+                                "title": "always",
+                                "type": "bool"
+                            },
+                            {
+                                "children": [],
+                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
+                                "help": null,
+                                "id": "CU_DIAGNOSTICS_COLOR_AUTO",
+                                "name": "CU_DIAGNOSTICS_COLOR_AUTO",
+                                "range": null,
+                                "title": "auto",
+                                "type": "bool"
+                            }
+                        ],
+                        "depends_on": null,
+                        "help": "Use color in diagnostics. \"never\", \"always\", or \"auto\". If \"always\", GCC will output\nwith color defined in GCC_COLORS environment variable. If \"never\", only output plain\ntext. If \"auto\", only output with color when the standard error is a terminal and when\nnot executing in an emacs shell.",
+                        "id": "component-config-cmake-utilities-color-in-diagnostics",
+                        "name": "CU_DIAGNOSTICS_COLOR",
+                        "title": "Color in diagnostics",
+                        "type": "choice"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Enable this option, users can enable GCC link time optimization(LTO)\n feature for target components or dependencies.",
+                        "id": "CU_GCC_LTO_ENABLE",
+                        "name": "CU_GCC_LTO_ENABLE",
+                        "range": null,
+                        "title": "Enable GCC link time optimization(LTO)",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Enable this option, user can make string in designated components align\n by 1-byte instead 1-word(4-byte), this can reduce unnecessary filled data\n so that to reduce firmware size.\"",
+                        "id": "CU_GCC_STRING_1BYTE_ALIGN",
+                        "name": "CU_GCC_STRING_1BYTE_ALIGN",
+                        "range": null,
+                        "title": "GCC string 1-byte align",
+                        "type": "bool"
+                    }
+                ],
+                "depends_on": null,
+                "id": "component-config-cmake-utilities",
+                "title": "CMake Utilities",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Button scan interval\"",
+                        "id": "BUTTON_PERIOD_TIME_MS",
+                        "name": "BUTTON_PERIOD_TIME_MS",
+                        "range": [
+                            2,
+                            20
+                        ],
+                        "title": "BUTTON PERIOD TIME (MS)",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"One CONFIG_BUTTON_DEBOUNCE_TICKS equal to CONFIG_BUTTON_PERIOD_TIME_MS\"",
+                        "id": "BUTTON_DEBOUNCE_TICKS",
+                        "name": "BUTTON_DEBOUNCE_TICKS",
+                        "range": [
+                            1,
+                            7
+                        ],
+                        "title": "BUTTON DEBOUNCE TICKS",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BUTTON_SHORT_PRESS_TIME_MS",
+                        "name": "BUTTON_SHORT_PRESS_TIME_MS",
+                        "range": [
+                            50,
+                            800
+                        ],
+                        "title": "BUTTON SHORT PRESS TIME (MS)",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BUTTON_LONG_PRESS_TIME_MS",
+                        "name": "BUTTON_LONG_PRESS_TIME_MS",
+                        "range": [
+                            500,
+                            5000
+                        ],
+                        "title": "BUTTON LONG PRESS TIME (MS)",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "BUTTON_LONG_PRESS_TOLERANCE_MS",
+                        "name": "BUTTON_LONG_PRESS_TOLERANCE_MS",
+                        "range": null,
+                        "title": "BUTTON LONG PRESS TOLERANCE TIME (MS)",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Serial trigger interval\"",
+                        "id": "BUTTON_SERIAL_TIME_MS",
+                        "name": "BUTTON_SERIAL_TIME_MS",
+                        "range": [
+                            2,
+                            1000
+                        ],
+                        "title": "BUTTON SERIAL TIME (MS)",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "Enable GPIO button power save\n\nThe function enables the use of GPIO buttons during light sleep,\nbut enabling this function prevents the simultaneous use of other\ntypes of buttons.",
+                        "id": "GPIO_BUTTON_SUPPORT_POWER_SAVE",
+                        "name": "GPIO_BUTTON_SUPPORT_POWER_SAVE",
+                        "range": null,
+                        "title": "GPIO BUTTON SUPPORT POWER SAVE",
+                        "type": "bool"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Maximum number of channels for ADC buttons\"",
+                        "id": "ADC_BUTTON_MAX_CHANNEL",
+                        "name": "ADC_BUTTON_MAX_CHANNEL",
+                        "range": [
+                            1,
+                            5
+                        ],
+                        "title": "ADC BUTTON MAX CHANNEL",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Maximum number of buttons per channel\"",
+                        "id": "ADC_BUTTON_MAX_BUTTON_PER_CHANNEL",
+                        "name": "ADC_BUTTON_MAX_BUTTON_PER_CHANNEL",
+                        "range": [
+                            1,
+                            10
+                        ],
+                        "title": "ADC BUTTON MAX BUTTON PER CHANNEL",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": "\"Number of samples per scan\"",
+                        "id": "ADC_BUTTON_SAMPLE_TIMES",
+                        "name": "ADC_BUTTON_SAMPLE_TIMES",
+                        "range": [
+                            1,
+                            4
+                        ],
+                        "title": "ADC BUTTON SAMPLE TIMES",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "id": "component-config-iot-button",
+                "title": "IoT Button",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "ESP_LCD_TOUCH_MAX_POINTS",
+                        "name": "ESP_LCD_TOUCH_MAX_POINTS",
+                        "range": [
+                            1,
+                            10
+                        ],
+                        "title": "Maximum count of the touch points",
+                        "type": "int"
+                    },
+                    {
+                        "children": [],
+                        "depends_on": null,
+                        "help": null,
+                        "id": "ESP_LCD_TOUCH_MAX_BUTTONS",
+                        "name": "ESP_LCD_TOUCH_MAX_BUTTONS",
+                        "range": [
+                            0,
+                            10
+                        ],
+                        "title": "Maximum count of the touch buttons supported",
+                        "type": "int"
+                    }
+                ],
+                "depends_on": null,
+                "id": "component-config-esp-lcd-touch",
+                "title": "ESP LCD TOUCH",
+                "type": "menu"
+            },
+            {
+                "children": [
+                    {
                         "children": [],
                         "depends_on": null,
                         "help": null,
@@ -30884,282 +31178,6 @@
                 "depends_on": null,
                 "id": "component-config-lvgl-configuration",
                 "title": "LVGL configuration",
-                "type": "menu"
-            },
-            {
-                "children": [
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": "CU_RELINKER_ENABLE",
-                                "help": "\"Enable this option to print error information instead of\n    throwing exception when missing function\"",
-                                "id": "CU_RELINKER_ENABLE_PRINT_ERROR_INFO_WHEN_MISSING_FUNCTION",
-                                "name": "CU_RELINKER_ENABLE_PRINT_ERROR_INFO_WHEN_MISSING_FUNCTION",
-                                "range": null,
-                                "title": "Print error information when missing function",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [
-                                    {
-                                        "children": [],
-                                        "depends_on": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES && CU_RELINKER_ENABLE",
-                                        "help": "\"Customized relinker configuration files path. This path is\nevaluated relative to the project root directory.\"",
-                                        "id": "CU_RELINKER_CUSTOMIZED_CONFIGURATION_FILES_PATH",
-                                        "name": "CU_RELINKER_CUSTOMIZED_CONFIGURATION_FILES_PATH",
-                                        "range": null,
-                                        "title": "Customized relinker configuration files path",
-                                        "type": "string"
-                                    }
-                                ],
-                                "depends_on": "CU_RELINKER_ENABLE",
-                                "help": "\"Enable this option to use customized relinker configuration\nfiles instead of default ones\"",
-                                "id": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES",
-                                "name": "CU_RELINKER_ENABLE_CUSTOMIZED_CONFIGURATION_FILES",
-                                "range": null,
-                                "title": "Enable customized relinker configuration files",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "help": "\"Enable relinker to linker some IRAM functions to Flash\"",
-                        "id": "CU_RELINKER_ENABLE",
-                        "name": "CU_RELINKER_ENABLE",
-                        "range": null,
-                        "title": "Enable relinker",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [
-                            {
-                                "children": [],
-                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
-                                "help": null,
-                                "id": "CU_DIAGNOSTICS_COLOR_NEVER",
-                                "name": "CU_DIAGNOSTICS_COLOR_NEVER",
-                                "range": null,
-                                "title": "never",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
-                                "help": null,
-                                "id": "CU_DIAGNOSTICS_COLOR_ALWAYS",
-                                "name": "CU_DIAGNOSTICS_COLOR_ALWAYS",
-                                "range": null,
-                                "title": "always",
-                                "type": "bool"
-                            },
-                            {
-                                "children": [],
-                                "depends_on": "<choice CU_DIAGNOSTICS_COLOR>",
-                                "help": null,
-                                "id": "CU_DIAGNOSTICS_COLOR_AUTO",
-                                "name": "CU_DIAGNOSTICS_COLOR_AUTO",
-                                "range": null,
-                                "title": "auto",
-                                "type": "bool"
-                            }
-                        ],
-                        "depends_on": null,
-                        "help": "Use color in diagnostics. \"never\", \"always\", or \"auto\". If \"always\", GCC will output\nwith color defined in GCC_COLORS environment variable. If \"never\", only output plain\ntext. If \"auto\", only output with color when the standard error is a terminal and when\nnot executing in an emacs shell.",
-                        "id": "component-config-cmake-utilities-color-in-diagnostics",
-                        "name": "CU_DIAGNOSTICS_COLOR",
-                        "title": "Color in diagnostics",
-                        "type": "choice"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Enable this option, users can enable GCC link time optimization(LTO)\n feature for target components or dependencies.",
-                        "id": "CU_GCC_LTO_ENABLE",
-                        "name": "CU_GCC_LTO_ENABLE",
-                        "range": null,
-                        "title": "Enable GCC link time optimization(LTO)",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Enable this option, user can make string in designated components align\n by 1-byte instead 1-word(4-byte), this can reduce unnecessary filled data\n so that to reduce firmware size.\"",
-                        "id": "CU_GCC_STRING_1BYTE_ALIGN",
-                        "name": "CU_GCC_STRING_1BYTE_ALIGN",
-                        "range": null,
-                        "title": "GCC string 1-byte align",
-                        "type": "bool"
-                    }
-                ],
-                "depends_on": null,
-                "id": "component-config-cmake-utilities",
-                "title": "CMake Utilities",
-                "type": "menu"
-            },
-            {
-                "children": [
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": null,
-                        "id": "ESP_LCD_TOUCH_MAX_POINTS",
-                        "name": "ESP_LCD_TOUCH_MAX_POINTS",
-                        "range": [
-                            1,
-                            10
-                        ],
-                        "title": "Maximum count of the touch points",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": null,
-                        "id": "ESP_LCD_TOUCH_MAX_BUTTONS",
-                        "name": "ESP_LCD_TOUCH_MAX_BUTTONS",
-                        "range": [
-                            0,
-                            10
-                        ],
-                        "title": "Maximum count of the touch buttons supported",
-                        "type": "int"
-                    }
-                ],
-                "depends_on": null,
-                "id": "component-config-esp-lcd-touch",
-                "title": "ESP LCD TOUCH",
-                "type": "menu"
-            },
-            {
-                "children": [
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Button scan interval\"",
-                        "id": "BUTTON_PERIOD_TIME_MS",
-                        "name": "BUTTON_PERIOD_TIME_MS",
-                        "range": [
-                            2,
-                            20
-                        ],
-                        "title": "BUTTON PERIOD TIME (MS)",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"One CONFIG_BUTTON_DEBOUNCE_TICKS equal to CONFIG_BUTTON_PERIOD_TIME_MS\"",
-                        "id": "BUTTON_DEBOUNCE_TICKS",
-                        "name": "BUTTON_DEBOUNCE_TICKS",
-                        "range": [
-                            1,
-                            7
-                        ],
-                        "title": "BUTTON DEBOUNCE TICKS",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": null,
-                        "id": "BUTTON_SHORT_PRESS_TIME_MS",
-                        "name": "BUTTON_SHORT_PRESS_TIME_MS",
-                        "range": [
-                            50,
-                            800
-                        ],
-                        "title": "BUTTON SHORT PRESS TIME (MS)",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": null,
-                        "id": "BUTTON_LONG_PRESS_TIME_MS",
-                        "name": "BUTTON_LONG_PRESS_TIME_MS",
-                        "range": [
-                            500,
-                            5000
-                        ],
-                        "title": "BUTTON LONG PRESS TIME (MS)",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": null,
-                        "id": "BUTTON_LONG_PRESS_TOLERANCE_MS",
-                        "name": "BUTTON_LONG_PRESS_TOLERANCE_MS",
-                        "range": null,
-                        "title": "BUTTON LONG PRESS TOLERANCE TIME (MS)",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Serial trigger interval\"",
-                        "id": "BUTTON_SERIAL_TIME_MS",
-                        "name": "BUTTON_SERIAL_TIME_MS",
-                        "range": [
-                            2,
-                            1000
-                        ],
-                        "title": "BUTTON SERIAL TIME (MS)",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "Enable GPIO button power save\n\nThe function enables the use of GPIO buttons during light sleep,\nbut enabling this function prevents the simultaneous use of other\ntypes of buttons.",
-                        "id": "GPIO_BUTTON_SUPPORT_POWER_SAVE",
-                        "name": "GPIO_BUTTON_SUPPORT_POWER_SAVE",
-                        "range": null,
-                        "title": "GPIO BUTTON SUPPORT POWER SAVE",
-                        "type": "bool"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Maximum number of channels for ADC buttons\"",
-                        "id": "ADC_BUTTON_MAX_CHANNEL",
-                        "name": "ADC_BUTTON_MAX_CHANNEL",
-                        "range": [
-                            1,
-                            5
-                        ],
-                        "title": "ADC BUTTON MAX CHANNEL",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Maximum number of buttons per channel\"",
-                        "id": "ADC_BUTTON_MAX_BUTTON_PER_CHANNEL",
-                        "name": "ADC_BUTTON_MAX_BUTTON_PER_CHANNEL",
-                        "range": [
-                            1,
-                            10
-                        ],
-                        "title": "ADC BUTTON MAX BUTTON PER CHANNEL",
-                        "type": "int"
-                    },
-                    {
-                        "children": [],
-                        "depends_on": null,
-                        "help": "\"Number of samples per scan\"",
-                        "id": "ADC_BUTTON_SAMPLE_TIMES",
-                        "name": "ADC_BUTTON_SAMPLE_TIMES",
-                        "range": [
-                            1,
-                            4
-                        ],
-                        "title": "ADC BUTTON SAMPLE TIMES",
-                        "type": "int"
-                    }
-                ],
-                "depends_on": null,
-                "id": "component-config-iot-button",
-                "title": "IoT Button",
                 "type": "menu"
             }
         ],

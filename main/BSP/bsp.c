@@ -31,4 +31,7 @@ void bsp_Init(void)
     bsp_ui_init();
     /* 初始化串口0 */
     bsp_Uart0Init(115200);
+
+    /* USB_CDC初始化 */
+     cdc_acm_init1(0, 0x60080000);
 }

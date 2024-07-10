@@ -15,7 +15,7 @@
     "idf.pythonBinPathWin": "C:/Espressif/python_env/idf5.2_py3.11_env/Scripts/python.exe",
     "idf.toolsPathWin": "C:\\Espressif",
     "idf.flashType": "UART",
-    "idf.portWin": "COM5",
+    "idf.portWin": "COM6",
     "files.associations": {
         "bsp_station.h": "c",
         "lv_examples.h": "c",
@@ -49,6 +49,21 @@
         "bsp_tcp_client.h": "c",
         "mqtt_client.h": "c",
         "bsp_mqtt_client.h": "c",
-        "esp_chip_info.h": "c"
+        "esp_chip_info.h": "c",
+        "usbd_core.h": "c",
+        "includes.h": "c",
+        "usb_util.h": "c",
+        "bsp_device_cdc.h": "c",
+        "sdkconfig.h": "c",
+        "esp_log.h": "c",
+        "device_cdc.h": "c",
+        "usbd_cdc.h": "c",
+        "sys.h": "c",
+        "nvs_flash.h": "c",
+        "usbx_cdc.h": "c",
+        "bsp_usbx_cdc.h": "c",
+        "esp_wifi.h": "c",
+        "adc_cali.h": "c",
+        "usbh_core.h": "c"
     }
 }
